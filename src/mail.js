@@ -15,7 +15,7 @@ const configOptions = {
 
 module.exports.createDailyJob = () => {
   const job = new CronJob(
-    "0 0 8 * * *",
+    "0 26 21 * * *",
     function () {
       console.log("Running Send Mail Job");
       const { Task, User } = models;
@@ -34,7 +34,9 @@ module.exports.createDailyJob = () => {
             },
           }).then((tasks) => {
             tasks.forEach((task) => {
-              content += `Title: ${task.title}\nDescription: ${task.description}\nStart time: ${task.start_time}\npriority: ${task.priority}\nprogress: ${task.progress}\n`;
+              const dateAfterFormatSecond = new Date(task.start_time).setSeconds(0, 0)
+              const startTimeFormated = new Date(dateAfterFormatSecond)
+              content += `Title: ${task.title}\nDescription: ${task.description}\nStart time: ${startTimeFormated.getHours()} giờ ${startTimeFormated.getMinutes()} phút\npriority: ${task.priority}\nprogress: ${task.progress}\n`;
             });
             if (content) {
               module.exports.sendMail(
