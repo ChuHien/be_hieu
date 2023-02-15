@@ -12,6 +12,10 @@ const sequelize = new Sequelize('itss', 'bacnd', '123456789', {
 		min: 0,
 		idle: 10000
 	},
+	"dialectOptions": {
+		"useUTC": false 
+	},
+	"timezone": "+7:00"
 
 });
 

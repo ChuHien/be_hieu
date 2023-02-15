@@ -67,7 +67,9 @@ router.put("/:id", authMiddleware, async (req, res) => {
   task.status = status;
   task.progress = progress;
   task.deleted = deleted ? deleted : false;
-  await task.save();
+  await task.save().then(data => {
+    console.log(data)
+  });
   return res.status(200).send(task);
 });
 
