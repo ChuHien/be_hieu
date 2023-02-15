@@ -47,10 +47,10 @@ router.get("/:id", authMiddleware, async (req, res) => {
   return res.status(200).send(task);
 });
 
-router.put("/:id", authMiddleware, createTaskMiddleware, async (req, res) => {
+router.put("/:id", authMiddleware, async (req, res) => {
   const { Task } = models;
   const { id } = req.params;
-  const { title, description, content, priority, start_time, progress, status } = req.body;
+  const { title, description, content, priority, start_time, progress, status, deleted } = req.body;
   const task = await Task.findOne({
     where: {
       id,
@@ -66,6 +66,7 @@ router.put("/:id", authMiddleware, createTaskMiddleware, async (req, res) => {
   task.start_time = start_time
   task.status = status;
   task.progress = progress;
+  task.deleted = deleted;
   await task.save();
   return res.status(200).send(task);
 });

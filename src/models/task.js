@@ -14,6 +14,11 @@ const getTaskModel = (sequelize, { DataTypes }) => {
           notEmpty: true,
         }
       },
+      deleted: {
+        type: DataTypes.BOOLEAN,
+        allowNull: false,
+        defaultValue: false,
+      },
       description: {
         type: DataTypes.STRING,
         allowNull: true
